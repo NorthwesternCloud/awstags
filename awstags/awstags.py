@@ -1,3 +1,6 @@
+import boto3
+import csv
+
 def flatten_resource_to_dict(resource_dict):
     """ returns a list of dicts of resources. Easier to turn into a csv
 
@@ -27,8 +30,7 @@ def get_headers(list_of_resources):
     """
      
     keys = list(set([key for resource in list_of_resources for key in resource.keys()]))
-    keys.sort()
-    return keys
+    return sorted(keys, key=str.casefold)
 
 def flatten_all_resources(resources):
     """ flattens resources into a simple list of dicts. This will allow for easier processing based
@@ -44,7 +46,6 @@ def flatten_all_resources(resources):
 
 def get_all_resources(profile):
     """Uses boto3 to page through all results and create a list of dicts"""
-    import boto3
     #setup the boto3 client (note this assumes you've authenticated via aws-adfs
     session = boto3.session.Session(profile_name=profile)
     client = session.client('resourcegroupstaggingapi')
@@ -52,21 +53,23 @@ def get_all_resources(profile):
     flat_resources = flatten_all_resources(resources) 
     #get the pagination token 
     pagination_token = resources.get('PaginationToken')
-
+    # keep track of the pages just for debugging
     p = 1
+    print(f"procesing page {p}")
     while pagination_token:
         resources = client.get_resources(ResourcesPerPage=100, PaginationToken=pagination_token)
         flat_resources.extend(flatten_all_resources(resources))
         pagination_token = resources.get('PaginationToken')
         p = p+1
-        print(p)
+        print(f"procesing page {p}")
+
+    # send back a flattened list of dicts for further processing
     return flat_resources
      
-
-     
-
 def to_normalized_list(resource_dict_list, headers):
-    """saves as a csv
+    """ gets all data based on a list of headers so that it can
+    be dumped into a columnized csv
+
     >>> res_dict = flatten_all_resources(sample_data())
     >>> headers = get_headers(res_dict)
     >>> l = to_normalized_list(res_dict, headers)
@@ -80,6 +83,14 @@ def to_normalized_list(resource_dict_list, headers):
 
     resources = [[r.get(h) for h in headers] for r in resource_dict_list]
     return resources
+
+def save_as_csv(headers, data, output_file):
+    """outputs a CSV using unicodecsv"""
+    with open(output_file, 'w') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow(headers)
+        for row in data:
+            writer.writerow(row)
 
 def sample_data():
     """ sample data for testing"""
@@ -104,5 +115,9 @@ def sample_data():
             }
 
     return data
+
+ 
+
+
 
 
