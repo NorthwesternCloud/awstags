@@ -7,5 +7,17 @@ install the library and related clis.
 
 `pip install git+https://github.com/davidschober/awstags.git`
 
+
+## res2csv 
+```
+res2csv --help 
+
+Usage:
+    res2csv -p <profile> <output>
+
+Options:
+    -p --profile <profile>      Name of aws profile e.g. "default" or "staging"
+```
+
 ## Development
 Developed with POETRY for package management.
