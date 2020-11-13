@@ -11,8 +11,7 @@ Uses the resourcegroupstaggingapi to grab a list of resources with tags and outp
 """
 
 import docopt
-import awstags
-
+from awstags import awstags
 def main():
     args = docopt.docopt(__doc__)
     resources = awstags.get_all_resources(args['--profile'])
