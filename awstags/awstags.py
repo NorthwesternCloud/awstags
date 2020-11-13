@@ -46,6 +46,7 @@ def flatten_all_resources(resources):
 
 def get_all_resources(profile):
     """Uses boto3 to page through all results and create a list of dicts"""
+
     #setup the boto3 client (note this assumes you've authenticated via aws-adfs
     session = boto3.session.Session(profile_name=profile)
     client = session.client('resourcegroupstaggingapi')
