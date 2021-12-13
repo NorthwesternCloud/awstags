@@ -5,7 +5,7 @@ A set of helpers and a cli that uses boto3's `resourcegroupstaggingapi` to grab 
 ## Installation
 install the library and related clis. Requires > python 3. 
 
-`pip install git+https://github.com/davidschober/awstags.git`
+`pip install git+https://github.com/NorthwesternCloud/awstags.git`
 
 
 ## res2csv 
@@ -17,6 +17,20 @@ Usage:
 
 Options:
     -p --profile <profile>      Name of aws profile e.g. "default" or "staging"
+```
+
+## s3tags
+```
+Usage: 
+    s3tags -b <bucket> -p <prefix> [-missing-tags]
+
+Options:
+    -b <bucket>     Bucket
+    -p <prefix>     Prefix 
+    -m --missing-tags  only show missing tags
+
+Description:
+stitches together s3 object and object tags
 ```
 
 ## Development
