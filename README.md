@@ -5,7 +5,7 @@ A set of helpers and a cli that uses boto3's `resourcegroupstaggingapi` to grab 
 ## Installation
 install the library and related clis. Requires > python 3. 
 
-`pip install git+https://github.com/davidschober/awstags.git`
+`pip install git+https://github.com/NorthwesternCloud/awstags.git`
 
 
 ## res2csv 
