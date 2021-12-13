@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "awstags"
-version = "0.1.0"
+version = "0.2.0"
 description = ""
 authors = ["David Schober <davidschob@gmail.com>"]
 

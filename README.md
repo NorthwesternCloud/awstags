@@ -19,6 +19,20 @@ Options:
     -p --profile <profile>      Name of aws profile e.g. "default" or "staging"
 ```
 
+## s3tags
+```
+Usage: 
+    s3tags -b <bucket> -p <prefix> [-missing-tags]
+
+Options:
+    -b <bucket>     Bucket
+    -p <prefix>     Prefix 
+    -m --missing-tags  only show missing tags
+
+Description:
+stitches together s3 object and object tags
+```
+
 ## Development
 
 Developed with POETRY for package management. There's some sanity checking doctests in the module. This is really just an example. Extend or augment at will.
